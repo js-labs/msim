@@ -1,0 +1,55 @@
+<!--
+ * Copyright (C) 2024 Sergey Zubarev, info@js-labs.org
+ *
+ * This file is a part of multicast simulator tool.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<project name="msim">
+
+    <property name="version" value="0.0.1"/>
+
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+
+    <property name="jar" value="${dist}/${ant.project.name}-${version}.jar"/>
+
+    <target name="init">
+        <mkdir dir="${build}/classes"/>
+        <mkdir dir="${dist}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="src" destdir="${build}/classes" includeantruntime="false" debug="true"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar jarfile="${jar}" basedir="${build}/classes">
+            <manifest>
+                <attribute name="Implementation-Title" value="${ant.project.name}"/>
+                <attribute name="Implementation-Vendor" value="org.jsl"/>
+                <attribute name="Implementation-Version" value="${version}"/>
+                <attribute name="Sealed" value="true"/>
+            </manifest>
+        </jar>
+    </target>
+
+</project>
